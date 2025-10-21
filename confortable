@@ -1,0 +1,54 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+struct User{ 
+    string name;
+    string surname;
+    int age;
+    string email;
+    string password;
+};
+
+struct Database{
+   vector<User> user;
+   string name;
+    
+};
+
+Database getDb(){
+    User bn =  { "Jou", "Doe", 19, "elena@45gmail.com", "pq_p56_+" };
+    User bm = { "Anna", "Vice", 16, "anavice@mail.com", "12345Qa" };
+    
+    return  {  {bn,bm}, "Elena" } ;
+ };
+
+ 
+ bool verify(string password, string email ){
+     Database intem =  getDb();
+     bool found = false;
+     
+    for(int i = 0; i < intem.user.size(); i++){
+        if(email == intem.user[i].email){
+            if(password == intem.user[i].password){
+             found = true;
+                
+            }
+            
+        }
+    }
+  //  if(found == FALSE) throw new IOException("Email not found");
+     
+     return found;
+ };
+
+int main()
+{  
+  string email, password = "";
+  cin >>  email;
+  cout<< "\n";
+  cin >>  password;
+  cout<< verify(password, email);
+    return 0;
+}
