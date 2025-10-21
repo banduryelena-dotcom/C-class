@@ -1,0 +1,55 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+struct Document {
+    string text;
+    vector<double> embedding;
+};
+
+
+double cosSim(vector<double> a, vector<double> b)
+{
+    if(a.size() != b.size()) throw invalid_argument("Wrong dimension");
+    
+    double d = 0, ma = 0, mb =0;
+    for(size_t i=0; i<a.size(); i++)
+    {
+        d += a[i] * b[i];
+        ma += a[i] * a[i];
+        mb += b[i] * b[i];
+    }
+    
+    ma = sqrt(ma);
+    mb = sqrt(mb);
+    
+    if(ma == 0 || mb == 0) return 0.0;
+    
+    return d/(ma*mb);
+}
+
+int main()
+{   
+    vector<Document> docs = {
+        {"apple fruit", {0.1, 0.3, 0.5, 0.7}},
+        {"banana yellow", {0.2, 0.1, 0.8, 0.6}},
+        {"car vehicle", {0.9, 0.1, 0.2, 0.3}}
+    };
+    
+    vector<double> dopv = {0.2, 0.2, 0.4, 0.1};
+    double g = cosSim(dopv, docs[0].embedding);
+
+    
+    vector<double> result(docs.size());
+    for(int i = 0; i < docs.size(); i++){
+    result[i] = cosSim( dopv, docs[i].embedding );
+    }
+    
+    for( int i = 0; i < result.size(); i++  )
+    {
+        cout<< result[i];
+    }
+    
+    return 0;
+}
