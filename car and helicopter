@@ -1,0 +1,62 @@
+#include <iostream>
+
+using namespace std;
+
+class Vehicle {
+public:
+    void moveLeft(){
+        cout<< "moveLeft";
+    }
+    void moveRight(){
+        cout<< "moveRight";
+    }
+    void moveBack(){
+        cout<< "moveBack";
+    }
+    void moveForward(){
+        cout<< "moveForward";
+    }
+    
+    void spawn(){
+        char key_pressed;
+        while(cin >> key_pressed && key_pressed != 'q') {
+            if(key_pressed == 'w') moveForward();
+            if(key_pressed == 's') moveBack();
+            if(key_pressed == 'a') moveLeft();
+            if(key_pressed == 'd') moveRight();
+        }
+    }
+};
+
+class Car: public Vehicle {
+public:
+    string color;
+    
+    Car(string _color){
+        color = _color;
+    }
+    
+    void fill(){
+        cout<< "Filling";
+    }
+    
+};
+
+class Helicopter: public Vehicle {
+public:    
+    int weight;
+    
+    Helicopter(int _weight){
+        weight = _weight;
+    }
+};
+
+
+int main(){
+  
+    Car* car1 = new Car("red");
+    car1->spawn();
+
+    return 0;
+}
+
